@@ -71,7 +71,11 @@ export class AssignmentOperator extends Operator { }
 
 export class Separator extends Token { }
 
-export class Keyword extends Token { }
+export class Keyword extends Token { 
+    public toAnonymousDebuggingToken() {
+        return { type: Keywords[this.type], line: this.line };
+    }
+}
 
 export abstract class GenericToken extends Token {
     public readonly value: string;
