@@ -75,7 +75,19 @@ export function LexerFactory(input: string): Lexer {
                     tokens.push(new Separator(TokenTypes.SEMICOLON, lineNumber));
                 }
                     break;
-                
+                case ':': {
+                    tokens.push(new Separator(TokenTypes.COLON, lineNumber));
+                }
+                    break;
+                case '"':
+                case `'`: {                    
+                    let content = '';
+
+                    ({ i, content } = scanString(input, i, char, content));                    
+
+                    tokens.push(new Literal(TokenTypes.STR, lineNumber, content));
+                }
+                    break;
             }
         }
 
@@ -83,6 +95,20 @@ export function LexerFactory(input: string): Lexer {
 
     return new Lexer(tokens);
 
+}
+
+function scanString(input: string, i: number, char: string, content: string) {
+    console.log('i[i]',input[i], {char});
+
+    while (input[++i] != char && i < input.length) {
+        console.log(input[i])
+        if (input[i] === '\\' && i + 1 < input.length) {
+            content += input[++i];
+        } else {
+            content += input[i];
+        }
+    }
+    return { i, content };
 }
 
 function scanSymbol(input: string, i: number, content: string) {
