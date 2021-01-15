@@ -14,6 +14,9 @@ export class Lexer {
     public get size() {
         return this.tokens.length;
     }
+    public get current() {
+        return this.get(this.index);
+    }
 
     public next(): Token {
         return this.get(++this.index);
