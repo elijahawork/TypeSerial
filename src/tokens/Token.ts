@@ -52,6 +52,10 @@ export abstract class Token {
         this.type = type;
         this.line = line;
     }
+
+    public toAnonymousDebuggingToken() {
+        return { type: TokenTypes[this.type], line: this.line };
+    }
 }
 export abstract class Operator extends Token { }
 export class ArithmeticOperator extends Operator { }
@@ -66,6 +70,10 @@ export abstract class GenericToken extends Token {
     constructor(type: number, line: number, value: string) {
         super(type, line);
         this.value = value;
+    }
+
+    public toAnonymousDebuggingToken() {
+        return { ...super.toAnonymousDebuggingToken(), value: this.value };
     }
 }
 export class Literal extends GenericToken {
