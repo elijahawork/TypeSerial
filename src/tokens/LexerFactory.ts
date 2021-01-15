@@ -98,8 +98,6 @@ export function LexerFactory(input: string): Lexer {
 }
 
 function scanString(input: string, i: number, char: string, content: string) {
-    console.log('i[i]',input[i], {char});
-
     while (input[++i] != char && i < input.length) {
         console.log(input[i])
         if (input[i] === '\\' && i + 1 < input.length) {
