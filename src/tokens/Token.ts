@@ -36,7 +36,15 @@ export enum TokenTypes {
     KWORD,
     SYMBOL,
 }
+
+enum Keywords {
+    
+}
+
 export abstract class Token {
+    static isKeyword(content: string): boolean {
+        return Keywords.hasOwnProperty(content);
+    }
     public readonly type: number;
     public readonly line: number;
 
