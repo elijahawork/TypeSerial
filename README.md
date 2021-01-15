@@ -79,3 +79,26 @@ An `if` statement is a branching statement where the `//code` is executed if the
 
 ###### Else Statement
 The `else` statement must follow an `if` statement and is executed if the condition in the if statement is false.
+
+An example of code being executed is as follows
+    
+    if (condition) {
+        // do this
+    } else {
+        // otherwise do this
+    }
+
+##### While Loop
+The `while` loop takes in a condition and executes its block of code while it the condition is true. The syntax is as follows
+
+#### Modules
+A module is a file. The contents of each file may be broken up into `public` and `private`.
+
+The syntax to create a visible section is as follows:
+
+    public:
+    // public module components
+    private:
+    // private module components
+
+Classes use this same syntax.
