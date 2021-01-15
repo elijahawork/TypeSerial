@@ -93,7 +93,7 @@ function scanSymbol(input: string, i: number, content: string) {
     return { i, content };
 }
 function scanNumber(input: string, i: number, isFloat: boolean, content: string) {
-    while (i < input.length && (isNumber(input[i]) || (input[i] === DECIMAL && !(isFloat = !isFloat))))
+    while (i < input.length && (isNumber(input[i]) || (input[i] === DECIMAL && (isFloat = !isFloat))))
         content += input[i++];
     i--;
     return { i, isFloat, content };
