@@ -86,14 +86,14 @@ export function LexerFactory(input: string): Lexer {
 }
 
 function scanSymbol(input: string, i: number, content: string) {
-    while (!!input[i] && isAlphanumeric(input[i])) {
+    while (i < input.length && isAlphanumeric(input[i])) {
         content += input[i++];
     }
     i--;
     return { i, content };
 }
 function scanNumber(input: string, i: number, isFloat: boolean, content: string) {
-    while ((!!input[i]) && (isNumber(input[i]) || (input[i] === DECIMAL && !(isFloat = !isFloat))))
+    while (i < input.length && (isNumber(input[i]) || (input[i] === DECIMAL && !(isFloat = !isFloat))))
         content += input[i++];
     i--;
     return { i, isFloat, content };
