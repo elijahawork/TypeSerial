@@ -24,7 +24,7 @@ export class Stack<T> {
     
     
     private outOfBoundsErrorOnEmptyStack() {
-        if (this.indexOutOfBounds(this.size))
+        if (this.empty())
             throw new IndexOutOfBoundsException(this.size);
     }
     private indexOutOfBounds(index: number): boolean {
