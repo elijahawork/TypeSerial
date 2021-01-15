@@ -92,7 +92,7 @@ An example of code being executed is as follows
 The `while` loop takes in a condition and executes its block of code while it the condition is true. The syntax is as follows
 
 #### Modules
-A module is a file. The contents of each file may be broken up into `public` and `private`.
+A module is a file / namespace. The contents of each file may be broken up into `public` and `private`.
 
 The syntax to create a visible section is as follows:
 
@@ -102,3 +102,67 @@ The syntax to create a visible section is as follows:
     // private module components
 
 Classes use this same syntax.
+
+##### Module Inclusion
+
+To include a module use the keyword `include` and then the name of the inclusion, i.e.
+
+    include Bar from Foo
+
+
+#### Generics
+A generic is denoted by the diamond brackets. They function like Java generics but are limited in that their ability to extend and implement is not advanced. 
+
+### Standard Libraries
+#### Data Structures
+
+##### Array<T>
+Fixed length list
+
+##### Vector<T>
+Nonfixed length list
+##### TreeVector<T>
+Sorted nonfixed length list
+##### Stack<T>
+LIFO
+##### Queue<T>
+FIFO
+##### HashMap<K, V>
+unsorted Key, Value pairs
+##### TreeMap<K, V>
+sorted key, value pairs
+
+#### Methods
+##### Math Module
+The Math module has several functions and constants that come with it:
+    
+    final e = 2.71828
+    final pi = 3.1415
+    
+    float sqrt(float radicand)
+    float root(float radicand, float root)
+
+    float log(float arg, float base)
+    float ln(float arg)
+    
+    int floor(float value)
+    int ceil(float value)
+
+    float sin(float value)
+    float cos(float value)
+    float tan(float value)    
+    float csc(float value)
+    float sec(float value)
+    float cot(float value)
+    float arcsin(float value)
+    float arccos(float value)
+    float arctan(float value)    
+    float arccsc(float value)
+    float arcsec(float value)
+    float arccot(float value)
+
+    float abs(float value)
+    int pow(int base, int exp)
+    float powf(float base, float exp);
+
+    float random()
