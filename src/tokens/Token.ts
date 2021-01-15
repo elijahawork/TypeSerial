@@ -30,20 +30,27 @@ export enum TokenTypes {
     INT,
     FLOAT,
     BOOL,
-    CHAR,
     STR,
 
     KWORD,
     SYMBOL,
 }
 
-enum Keywords {
-    
+export enum Keywords {
+    FN,
+    LET,
+    FINAL,
+    IF,
+    ELSE,
+    WHILE,
+    CLASS,
+    PUBLIC,
+    PRIVATE,
 }
-
 export abstract class Token {
-    static isKeyword(content: string): boolean {
-        return Keywords.hasOwnProperty(content);
+    static isKeyword(content: string): content is keyof Keywords {
+        return content.toLowerCase() === content &&
+            Keywords.hasOwnProperty(content.toUpperCase());
     }
     public readonly type: number;
     public readonly line: number;
@@ -64,6 +71,8 @@ export class AssignmentOperator extends Operator { }
 
 export class Separator extends Token { }
 
+export class Keyword extends Token { }
+
 export abstract class GenericToken extends Token {
     public readonly value: string;
 
@@ -82,7 +91,7 @@ export class Literal extends GenericToken {
     }
 }
 export class Identifier extends GenericToken {
-    constructor(type: number, line: number, value: string) {
-        super(type, line, value);
+    constructor(line: number, value: string) {
+        super(TokenTypes.SYMBOL, line, value);
     }
 }
