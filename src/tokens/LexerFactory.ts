@@ -1,5 +1,5 @@
 import { Lexer } from "./Lexer";
-import { Identifier, Literal, Separator, Token, TokenTypes } from "./Token";
+import { ArithmeticOperator, AssignmentOperator, Identifier, Keyword, Keywords, Literal, LogicalOperator, Operator, Separator, Token, TokenTypes } from "./Token";
 
 const NEWLINE = '\n';
 const DECIMAL = '.';
@@ -18,10 +18,12 @@ export function LexerFactory(input: string): Lexer {
 
             ({ i, content } = scanSymbol(input, i, content));
 
-            if (Token.isKeyword(content))
-                tokens.push(new Identifier(TokenTypes.KWORD, lineNumber, content));
-            else
-                tokens.push(new Identifier(TokenTypes.SYMBOL, lineNumber, content));
+            if (Token.isKeyword(content)) {
+                const keywordID: number = Keywords[content.toUpperCase() as unknown as number] as unknown as number;
+                tokens.push(new Keyword(keywordID, lineNumber));
+            } else {
+                tokens.push(new Identifier(lineNumber, content));
+            }
         } else if (isNumber(char)) {
             let content = '';
             let isFloat = false;
@@ -80,12 +82,68 @@ export function LexerFactory(input: string): Lexer {
                 }
                     break;
                 case '"':
-                case `'`: {                    
+                case `'`: {
                     let content = '';
 
-                    ({ i, content } = scanString(input, i, char, content));                    
+                    ({ i, content } =
+                        scanString(input, i, char, content));
 
                     tokens.push(new Literal(TokenTypes.STR, lineNumber, content));
+                }
+                    break;
+                case '+': {
+                    tokens.push(new ArithmeticOperator(TokenTypes.ADD, lineNumber));
+                }
+                    break;
+                case '-': {
+                    tokens.push(new ArithmeticOperator(TokenTypes.SUB, lineNumber));
+                }
+                    break;
+                case '*': {
+                    tokens.push(new ArithmeticOperator(TokenTypes.MUL, lineNumber));
+                }
+                    break;
+                case '/': {
+                    tokens.push(new ArithmeticOperator(TokenTypes.DIV, lineNumber));
+                }
+                    break;
+                case '%': {
+                    tokens.push(new ArithmeticOperator(TokenTypes.MOD, lineNumber));
+                }
+                    break;
+                case '=': {
+                    if (input[i + 1] === '=') {
+                        i++;
+                        tokens.push(new LogicalOperator(TokenTypes.EQUAL, lineNumber));
+                    } else {
+                        tokens.push(new AssignmentOperator(TokenTypes.ASSIGN, lineNumber));
+                    }
+                }
+                    break;
+                case '<': {
+                    if (input[i + 1] === '=') {
+                        i++;
+                        tokens.push(new LogicalOperator(TokenTypes.LEQUAL, lineNumber));
+                    } else {
+                        tokens.push(new LogicalOperator(TokenTypes.LESSER, lineNumber));
+                    }
+                }
+                    break;
+                case '>': {
+                    if (input[i + 1] === '=') {
+                        i++;
+                        tokens.push(new LogicalOperator(TokenTypes.GEQUAL, lineNumber));
+                    } else {
+                        tokens.push(new LogicalOperator(TokenTypes.GREATER, lineNumber));
+                    }
+                }
+                    break;
+                case '&': {
+                    tokens.push(new LogicalOperator(TokenTypes.AND, lineNumber));
+                }
+                    break;
+                case '|': {
+                    tokens.push(new LogicalOperator(TokenTypes.ADD, lineNumber));
                 }
                     break;
             }
