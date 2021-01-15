@@ -1,0 +1,26 @@
+{
+  "name": "TypeSerial",
+  "version": "1.0.0",
+  "description": "A type safe serialized programming language\r ##\r The purpose of this programming language is to provide an eloquent typesafe, basic programming language with the basis of\r all data being serializable without custom serialization having to be completely implemented.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elijahawork/TypeSerial.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elijahawork/TypeSerial/issues"
+  },
+  "homepage": "https://github.com/elijahawork/TypeSerial#readme",
+  "devDependencies": {
+    "@types/node": "^14.14.21",
+    "@types/source-map-support": "^0.5.3",
+    "source-map-support": "^0.5.19",
+    "typescript": "^4.1.3"
+  }
+}
