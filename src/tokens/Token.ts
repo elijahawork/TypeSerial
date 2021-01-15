@@ -64,10 +64,50 @@ export abstract class Token {
         return { type: TokenTypes[this.type], line: this.line };
     }
 }
-export abstract class Operator extends Token { }
-export class ArithmeticOperator extends Operator { }
-export class LogicalOperator extends Operator { }
-export class AssignmentOperator extends Operator { }
+export abstract class Operator extends Token { 
+    public abstract precedence: number;
+    public readonly abstract isUnary: boolean;
+}
+export class ArithmeticOperator extends Operator { 
+    public get precedence() {
+        switch (this.type) {
+            case TokenTypes.ADD:
+            case TokenTypes.SUB:
+                return 5;
+            case TokenTypes.DIV:
+            case TokenTypes.MUL:
+            case TokenTypes.MOD:
+                return 6;
+        }
+        throw new TypeError(`Invalid type ${this.type}`);
+    }
+    get isUnary() {
+        return false;
+    }
+}
+export class LogicalOperator extends Operator {
+    public get precedence() {
+        if (this.type === TokenTypes.NOT)
+            return 10;
+        else if (this.type === TokenTypes.OR)
+            return 8;
+        else if (this.type === TokenTypes.AND)
+            return 9;
+        else
+            return 7;
+    }
+    get isUnary() {
+        return this.type === TokenTypes.NOT;
+    }
+}
+export class AssignmentOperator extends Operator {
+    public get precedence() {
+        return 11;   
+    }
+    get isUnary() {
+        return false;
+    }
+}
 
 export class Separator extends Token { }
 
